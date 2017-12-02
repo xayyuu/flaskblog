@@ -12,7 +12,7 @@
     :license: BSD, see LICENSE for more details.
 """
 
-from flask.ext.wtf import Form, RecaptchaField
+from flask_wtf import Form, RecaptchaField
 from wtforms import SubmitField, TextField, TextAreaField
 from wtforms.validators import InputRequired, Email,  Length
 

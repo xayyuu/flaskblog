@@ -3,7 +3,7 @@
 
 # -*- coding: utf-8 -*-
 from flask import url_for, Markup
-from flask.ext.sqlalchemy import SQLAlchemy, BaseQuery
+from flask_sqlalchemy import SQLAlchemy, BaseQuery
 from werkzeug import cached_property
 from datetime import datetime
 from myapp import app

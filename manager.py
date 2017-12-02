@@ -14,22 +14,22 @@
 from flask.ext.script import Server, Manager, prompt_bool
 from myapp import app
 from model import db
+from config import CATALOG
 
 
 manager = Manager(app)
 manager.add_command("runserver", Server('0.0.0.0', port=5000))
 
+
 @manager.command
 def createall():
     "Creates database tables"
     db.create_all()
-    "add Category"
-    catalog =[u'Python',u'算法',u'运维',u'人工智能',u"文学"]
     from model import Category
-    for i in range(1, len(catalog )):
+    for i in range(1, len(CATALOG)):
         item = Category()
         item.id = i
-        item.category_name = catalog [i-1]
+        item.category_name = CATALOG [i-1]
         db.session.add(item)
     db.session.commit()
 

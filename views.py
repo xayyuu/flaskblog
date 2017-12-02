@@ -7,7 +7,7 @@ from myapp import app
 from model import article_tags, Category, Post, Tag, Comment, pageby, db
 from werkzeug import secure_filename
 from werkzeug.contrib.atom import AtomFeed
-from flask.ext.cache import Cache
+from flask_cache import Cache
 from random import shuffle
 from HTMLParser import HTMLParser
 from re import sub
@@ -18,8 +18,11 @@ import json
 import time
 from datetime import datetime
 from form import CommentForm
+from config import CATALOG
+
 
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+cachetime = 10
 app.config.from_object('config')
 per_page = app.config['PER_PAGE']
 
@@ -100,7 +103,7 @@ def error_404():
 
 @app.route('/')
 @app.route('/page/<int:pageid>')
-@cache.cached(timeout=300)
+@cache.cached(timeout=cachetime)
 def index(pageid=1):
     categorys = Category.query.getall()
 
@@ -131,12 +134,13 @@ def index(pageid=1):
                            pageid=pageid,
                            pagination=pagination[pageid - 1:pageid + 10],
                            last_page=pagination[-1],
-                           nav_current="index"
+                           nav_current="index",
+                           catalogs=CATALOG
                            )
 
 
 @app.route('/about')
-@cache.cached(timeout=300)
+@cache.cached(timeout=cachetime)
 def about():
     categorys = Category.query.getall()
     hot = Post.query.hottest()[:20]
@@ -153,12 +157,13 @@ def about():
                            hotarticles=hot,
                            newpost=new,
                            tags=tag,
-                           comments=comments)
+                           comments=comments,
+                           catalogs=CATALOG)
 
 
 @app.route('/category/<int:cateid>')
 @app.route('/category/<int:cateid>/page/<int:pageid>')
-@cache.cached(timeout=300)
+@cache.cached(timeout=cachetime)
 def category(cateid=1, pageid=1):
     categorys = Category.query.getall()
     hot = Post.query.hottest()[:20]
@@ -191,13 +196,14 @@ def category(cateid=1, pageid=1):
                            comments=comments,
                            pageid=pageid,
                            pagination=pagination[pageid - 1:pageid + 10],
-                           last_page=pagination[-1]
+                           last_page=pagination[-1],
+                           catalogs=CATALOG
                            )
 
 
 @app.route('/tag/<int:tagid>')
 @app.route('/tag/<int:tagid>/page/<int:pageid>')
-@cache.cached(timeout=300)
+@cache.cached(timeout=cachetime)
 def tag(tagid=1, pageid=1):
     categorys = Category.query.getall()
     hot = Post.query.hottest()[:20]
@@ -231,13 +237,14 @@ def tag(tagid=1, pageid=1):
                            comments=comments,
                            pageid=pageid,
                            pagination=pagination[pageid - 1:pageid + 10],
-                           last_page=pagination[-1]
+                           last_page=pagination[-1],
+                           catalogs=CATALOG
                            )
 
 
 @app.route('/search')
 @app.route('/search/page/<int:pageid>')
-@cache.cached(timeout=240)
+@cache.cached(timeout=cachetime)
 def search(pageid=1):
 
     categorys = Category.query.getall()
@@ -274,12 +281,13 @@ def search(pageid=1):
                            comments=comments,
                            pageid=pageid,
                            pagination=pagination[pageid - 1:pageid + 10],
-                           last_page=pagination[-1]
+                           last_page=pagination[-1],
+                           catalogs=CATALOG
                            )
 
 
 @app.route('/article/<int:postid>')
-@cache.cached(timeout=300)
+@cache.cached(timeout=cachetime)
 def article(postid=5):
     categorys = Category.query.getall()
     hot = Post.query.hottest()[:20]
@@ -306,12 +314,13 @@ def article(postid=5):
                            tags=tag,
                            comments=comments,
                            postcoments=postcoments,
-                           form=form
+                           form=form,
+                           catalogs=CATALOG
                            )
 
 
 @app.route('/<postname>.html')
-@cache.cached(timeout=300)
+@cache.cached(timeout=cachetime)
 def article_byname(postname):
     categorys = Category.query.getall()
     hot = Post.query.hottest()[:20]
@@ -455,14 +464,3 @@ def apost():
     return redirect(url_for('newpost'))
 
 
-@app.route('/rss_lastnews')
-@cache.cached(timeout=86400)
-def rss_last():
-    feed = PostFeed("pythonpub - lastnews",
-                    feed_url=request.url,
-                    url=request.url_root)
-    new = Post.query.newpost().limit(15)
-    for post in new:
-        feed.add_post(post)
-
-    return feed.get_response()
