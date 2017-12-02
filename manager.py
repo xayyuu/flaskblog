@@ -26,10 +26,10 @@ def createall():
     "Creates database tables"
     db.create_all()
     from model import Category
-    for i in range(1, len(CATALOG)):
+    for i in range(len(CATALOG)):
         item = Category()
-        item.id = i
-        item.category_name = CATALOG [i-1]
+        item.id = i+1  # item.id 不能为0，所以必须从1 开始
+        item.category_name = CATALOG[i]
         db.session.add(item)
     db.session.commit()
 
