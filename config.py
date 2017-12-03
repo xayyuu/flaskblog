@@ -28,7 +28,7 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///'+ os.path.join(basedir, 'data.sqlite')
 
 SECRET_KEY = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 USERNAME = 'admin'
-PASSWORD = 'yutianyou'
+PASSWORD = 'admin1234'
 
 UPLOAD_FOLDER = './static/upload/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
