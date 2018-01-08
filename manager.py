@@ -11,7 +11,7 @@
     :copyright: (c) 2013.
     :license: BSD, see LICENSE for more details.
 """
-from flask.ext.script import Server, Manager, prompt_bool
+from flask_script import Server, Manager, prompt_bool
 from myapp import app
 from model import db
 from config import CATALOG

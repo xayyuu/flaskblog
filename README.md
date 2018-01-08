@@ -1,3 +1,3 @@
-基于https://github.com/sixu05202004/flaskblog 的源代码进行二次开发，暂时先用这个结构，会逐渐过渡，替换掉其中许多内容。
+基于https://github.com/sixu05202004/flaskblog 的源代码（在此感谢原作者，如有版权问题，请通知我，我会立即删除相关内容）进行二次开发，暂时先用这个结构，未来将逐渐过渡，优化整体内容。
 
-如果有任何问题，欢迎联系: yuxiao2113@gmail.com
+如有任何问题，欢迎联系: yuxiao2113@gmail.com

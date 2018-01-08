@@ -6,4 +6,4 @@ import functools
 
 markdown = functools.partial(markdown.markdown,
                              safe_mode='remove',
-                             output_format="html")
+                             output_format="html") 

@@ -257,7 +257,7 @@ def search(pageid=1):
 
     searchword = request.args.get('s', '')
     if not searchword:
-        return redirect(url_for('error_404'))
+        return redirect(url_for('index'))
 
     searchresult = Post.query.search(searchword)
 
@@ -376,21 +376,6 @@ def addcomment():
 @app.route('/error')
 def error(content='404'):
     return render_template('/error.html', content=content)
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in')
-            return redirect(url_for('newpost'))
-    return render_template('login.html')
 
 
 @app.route('/logout')

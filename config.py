@@ -25,10 +25,11 @@ PER_PAGE = 10
 basedir = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_DATABASE_URI = 'sqlite:///'+ os.path.join(basedir, 'data.sqlite')
 
+# proj code : zhuzi
+SECRET_KEY =os.environ.get("SECRET_KEY_ZHUZI")
+USERNAME = os.environ.get("USERNAME_ZHUZI")
+PASSWORD = os.environ.get("PASSWORD_ZHUZI")
 
-SECRET_KEY = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-USERNAME = 'admin'
-PASSWORD = 'admin1234'
 
 UPLOAD_FOLDER = './static/upload/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -37,4 +38,4 @@ RECAPTCHA_PUBLIC_KEY = '6Ld4rwITAAAAAKUD5AntlHi7HL36W2vHJQOIjQmA'
 RECAPTCHA_PRIVATE_KEY = '6Ld4rwITAAAAAFE8nTS852QbsqCBx1mN8D4BqenE'
 
 # 目錄
-CATALOG = [u'Python', u'算法', u'运维', u'人工智能', u"文学"]
+CATALOG = [u'Python', u'Algorithm', u'DevOps', u'AI', u"Life"]

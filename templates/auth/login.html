@@ -9,17 +9,15 @@
 <meta name='robots' content='noindex,nofollow' />
 </head>
 <body class="login">
+    {% for message in get_flashed_messages() %}
+    <p id="message"> <span style="font-size:30px;font-weight:bold;">{{ message }}</span>
+        </p>
+    {% endfor %}
 
-	  <div class=metanav>
-  {% if not session.logged_in %}
-    <a href="{{ url_for('login') }}">log in</a>
-  {% else %}
-    <a href="{{ url_for('logout') }}">log out</a>
-  {% endif %}
-  </div>
+
 <div id="login">
 
- <form action="{{ url_for('login') }}" method=post>
+ <form action="{{ url_for('auth.login') }}" method=post>
 <p>
 <label for="user_login">用户名<br />
 <input type="text" name="username" id="username" class="input" value="" size="20" tabindex="10" /></label>
@@ -47,8 +45,11 @@ d.select();
 wp_attempt_focus();
 if(typeof wpOnload=='function')wpOnload();
 </script>
-<p id="backtoblog"><a href="/" title="不知道自己在哪？">&larr; 首页&#039; Home</a></p>
+<p id="backtoblog"><a href="/" title="返回首页">&larr; 首页&#039; Home</a></p>
 </div>
 <div class="clear"></div>
+
+
+
 </body>
 </html> 
